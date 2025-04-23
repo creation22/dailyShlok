@@ -48,7 +48,12 @@ const SearchBar = () => {
         onSubmit={handleSearch}
         className="h-full flex flex-col gap-3 p-5 bg-gradient-to-br from-amber-100 to-amber-50 border border-amber-200 rounded-2xl shadow-lg"
       >
-        <h2 className="text-xl font-bold text-amber-800 text-center">🔍 Search</h2>
+        <div className="flex justify-between items-center mb-2">
+          <h2 className="text-xl font-bold text-amber-800">🔍 Search</h2>
+          <div className="bg-amber-800/10 p-1 rounded-md">
+            <span className="text-xs text-amber-800 uppercase tracking-wider">Drag to move</span>
+          </div>
+        </div>
         
         <div className="flex-grow w-full">
           <div className="flex items-center bg-white rounded-lg border border-amber-300 overflow-hidden shadow-md">

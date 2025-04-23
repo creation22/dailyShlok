@@ -36,11 +36,16 @@ const GoalTracker = () => {
 
   return (
     <div className="h-full p-5 bg-gradient-to-br from-amber-100 to-amber-50 shadow-lg rounded-2xl border border-amber-200">
-      <h2 className="text-xl font-bold mb-4 text-amber-800 text-center">🎯 Your Goal</h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-bold text-amber-800">🎯 Your Goal</h2>
+        <div className="bg-amber-800/10 p-1 rounded-md">
+          <span className="text-xs text-amber-800 uppercase tracking-wider">Drag to move</span>
+        </div>
+      </div>
 
       {/* Smaller description */}
       {description ? (
-        <div className="bg-amber-50 p-3 rounded-xl border border-amber-200 shadow-sm mb-4 max-h-24 overflow-auto">
+        <div className="bg-amber-50 p-3 rounded-xl border border-amber-200 shadow-sm mb-4 max-h-16 overflow-auto">
           <p className="text-sm font-medium text-amber-900">{description}</p>
         </div>
       ) : (
@@ -49,7 +54,7 @@ const GoalTracker = () => {
         </div>
       )}
 
-      {/* Larger timer */}
+      {/* Timer */}
       {targetDate ? (
         timeLeft?.expired ? (
           <div className="bg-red-50 p-4 rounded-xl border border-red-200 shadow-md">
@@ -59,22 +64,22 @@ const GoalTracker = () => {
         ) : (
           <div className="bg-amber-50 p-4 rounded-xl border border-amber-200 shadow-md">
             <p className="text-amber-800 font-medium mb-2 text-center">Time Remaining:</p>
-            <div className="grid grid-cols-2 gap-3 text-center">
-              <div className="bg-gradient-to-b from-amber-700 to-amber-800 text-amber-50 p-3 rounded-lg shadow-md">
-                <p className="text-3xl font-bold">{formatTimeUnit(timeLeft.days || 0)}</p>
+            <div className="grid grid-cols-4 gap-2 text-center">
+              <div className="bg-gradient-to-b from-amber-700 to-amber-800 text-amber-50 p-2 rounded-lg shadow-md">
+                <p className="text-2xl font-bold">{formatTimeUnit(timeLeft.days || 0)}</p>
                 <p className="text-xs uppercase tracking-wider">Days</p>
               </div>
-              <div className="bg-gradient-to-b from-amber-700 to-amber-800 text-amber-50 p-3 rounded-lg shadow-md">
-                <p className="text-3xl font-bold">{formatTimeUnit(timeLeft.hours || 0)}</p>
-                <p className="text-xs uppercase tracking-wider">Hours</p>
+              <div className="bg-gradient-to-b from-amber-700 to-amber-800 text-amber-50 p-2 rounded-lg shadow-md">
+                <p className="text-2xl font-bold">{formatTimeUnit(timeLeft.hours || 0)}</p>
+                <p className="text-xs uppercase tracking-wider">Hrs</p>
               </div>
-              <div className="bg-gradient-to-b from-amber-700 to-amber-800 text-amber-50 p-3 rounded-lg shadow-md">
-                <p className="text-3xl font-bold">{formatTimeUnit(timeLeft.minutes || 0)}</p>
-                <p className="text-xs uppercase tracking-wider">Mins</p>
+              <div className="bg-gradient-to-b from-amber-700 to-amber-800 text-amber-50 p-2 rounded-lg shadow-md">
+                <p className="text-2xl font-bold">{formatTimeUnit(timeLeft.minutes || 0)}</p>
+                <p className="text-xs uppercase tracking-wider">Min</p>
               </div>
-              <div className="bg-gradient-to-b from-amber-700 to-amber-800 text-amber-50 p-3 rounded-lg shadow-md">
-                <p className="text-3xl font-bold">{formatTimeUnit(timeLeft.seconds || 0)}</p>
-                <p className="text-xs uppercase tracking-wider">Secs</p>
+              <div className="bg-gradient-to-b from-amber-700 to-amber-800 text-amber-50 p-2 rounded-lg shadow-md">
+                <p className="text-2xl font-bold">{formatTimeUnit(timeLeft.seconds || 0)}</p>
+                <p className="text-xs uppercase tracking-wider">Sec</p>
               </div>
             </div>
           </div>
