@@ -23,10 +23,10 @@ const PayMeButton = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="2"
-            d="M12 6c3.866 0 7 3.134 7 7s-3.134 7-7 7-7-3.134-7-7 3.134-7 7-7zm0 2a5 5 0 00-5 5 5 5 0 0010 0 5 5 0 00-5-5zM4 12a8 8 0 0116 0"
+            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
           />
         </svg>
-        <span className="font-medium">Buy Me a Coffee</span>
+        <span className="font-medium">Support Project</span>
       </a>
     </div>
   );

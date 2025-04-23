@@ -36,7 +36,7 @@ const SettingsCorner = () => {
       {/* Floating Button */}
       <button
         onClick={() => setOpen(!open)}
-        className="fixed top-4 right-4 bg-amber-800 text-amber-50 p-3 rounded-full shadow-lg hover:bg-amber-900 transition-all duration-300 z-50"
+        className="fixed top-4 right-4 bg-gradient-to-br from-amber-700 to-amber-800 text-amber-50 p-3 rounded-full shadow-lg hover:from-amber-800 hover:to-amber-900 transition-all duration-300 z-50"
         title="Settings"
       >
         <Settings size={20} />
@@ -44,7 +44,7 @@ const SettingsCorner = () => {
 
       {/* Settings Panel */}
       {open && (
-        <div className="fixed top-16 right-4 bg-amber-50 border-2 border-amber-200 rounded-xl shadow-xl w-[320px] max-w-[90vw] p-5 z-40">
+        <div className="fixed top-16 right-4 bg-amber-50 border border-amber-200 rounded-xl shadow-xl w-[320px] max-w-[90vw] p-5 z-40">
           <h2 className="text-lg font-bold mb-4 text-amber-800">⚙️ Settings</h2>
 
           {/* Goal Description */}
@@ -55,7 +55,7 @@ const SettingsCorner = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="e.g. Read 100 shloks"
-              className="w-full border border-amber-300 rounded-lg px-3 py-2 mt-1 text-amber-900 bg-white placeholder-amber-400"
+              className="w-full border border-amber-300 rounded-lg px-3 py-2 mt-1 text-amber-900 bg-white placeholder-amber-400 shadow-sm"
             />
           </div>
 
@@ -66,7 +66,7 @@ const SettingsCorner = () => {
               type="datetime-local"
               value={dateTime}
               onChange={(e) => setDateTime(e.target.value)}
-              className="w-full border border-amber-300 rounded-lg px-3 py-2 mt-1 text-amber-900 bg-white"
+              className="w-full border border-amber-300 rounded-lg px-3 py-2 mt-1 text-amber-900 bg-white shadow-sm"
             />
           </div>
 
@@ -87,7 +87,7 @@ const SettingsCorner = () => {
             <select
               value={searchProvider}
               onChange={(e) => setSearchProvider(e.target.value)}
-              className="w-full border border-amber-300 rounded-lg px-3 py-2 mt-1 text-amber-900 bg-white"
+              className="w-full border border-amber-300 rounded-lg px-3 py-2 mt-1 text-amber-900 bg-white shadow-sm"
             >
               <option value="google">Google</option>
               <option value="chatgpt">ChatGPT</option>
@@ -98,7 +98,7 @@ const SettingsCorner = () => {
           {/* Save Button */}
           <button
             onClick={handleSave}
-            className="bg-amber-800 text-amber-50 w-full py-2 rounded-xl hover:bg-amber-900 transition-all duration-300"
+            className="bg-gradient-to-r from-amber-700 to-amber-800 text-amber-50 w-full py-2 rounded-xl hover:from-amber-800 hover:to-amber-900 transition-all duration-300 shadow-md"
           >
             Save & Close
           </button>

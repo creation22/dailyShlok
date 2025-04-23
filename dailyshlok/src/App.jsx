@@ -9,45 +9,31 @@ import PayMeButton from "./components/Pay";
 function App() {
   return (
     <div className="min-h-screen bg-amber-50 pb-16">
-      {/* Header */}
-      <header className="bg-amber-800 text-amber-50 py-4 px-6 shadow-md mb-8">
-        <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-2xl md:text-3xl font-bold">Dharma Dashboard</h1>
-        </div>
-      </header>
-      
       {/* Corner Components */}
       <Star />
       <SettingsCorner />
       <PayMeButton />
       
       {/* Main Grid Layout */}
-      <div className="max-w-6xl mx-auto px-4">
-        {/* Search Bar */}
-        <div className="mb-8">
-          <SearchBar />
-        </div>
-        
-        {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          {/* Shlok Display - Takes 2/3 of the space on large screens */}
-          <div className="lg:col-span-2">
+      <div className="max-w-6xl mx-auto px-4 pt-16">
+        {/* Main Content Grid - Three columns on large screens */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Search Bar */}
+          <div className="md:col-span-1">
+            <SearchBar />
+          </div>
+          
+          {/* Shlok Display */}
+          <div className="md:col-span-1">
             <ShlokDisplay />
           </div>
           
-          {/* Goal Tracker - Takes 1/3 of the space on large screens */}
-          <div>
+          {/* Goal Tracker */}
+          <div className="md:col-span-1">
             <GoalTracker />
           </div>
         </div>
       </div>
-      
-      {/* Footer */}
-      <footer className="bg-amber-800 text-amber-50 py-4 px-6 mt-12">
-        <div className="max-w-6xl mx-auto text-center">
-          <p>© {new Date().getFullYear()} Dharma Dashboard</p>
-        </div>
-      </footer>
     </div>
   );
 }

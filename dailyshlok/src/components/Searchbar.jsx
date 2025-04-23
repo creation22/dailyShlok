@@ -43,13 +43,15 @@ const SearchBar = () => {
   if (!visible) return null;
 
   return (
-    <div className="w-full">
+    <div className="h-full">
       <form
         onSubmit={handleSearch}
-        className="flex flex-col md:flex-row items-center gap-3 p-4 bg-amber-50 border-2 border-amber-200 rounded-xl shadow-md"
+        className="h-full flex flex-col gap-3 p-5 bg-gradient-to-br from-amber-100 to-amber-50 border border-amber-200 rounded-2xl shadow-lg"
       >
+        <h2 className="text-xl font-bold text-amber-800 text-center">🔍 Search</h2>
+        
         <div className="flex-grow w-full">
-          <div className="flex items-center bg-white rounded-lg border border-amber-300 overflow-hidden">
+          <div className="flex items-center bg-white rounded-lg border border-amber-300 overflow-hidden shadow-md">
             <input
               type="text"
               className="flex-grow px-4 py-3 text-amber-900 placeholder-amber-400 bg-white outline-none w-full"
@@ -60,11 +62,11 @@ const SearchBar = () => {
           </div>
         </div>
         
-        <div className="flex gap-2 w-full md:w-auto">
+        <div className="flex gap-2 w-full">
           <select
             value={provider}
             onChange={handleProviderChange}
-            className="px-3 py-3 rounded-lg border border-amber-300 bg-white text-amber-800 cursor-pointer"
+            className="px-3 py-2 rounded-lg border border-amber-300 bg-white text-amber-800 cursor-pointer shadow-sm flex-grow"
           >
             <option value="google">Google</option>
             <option value="chatgpt">ChatGPT</option>
@@ -73,7 +75,7 @@ const SearchBar = () => {
           
           <button
             type="submit"
-            className="bg-amber-800 text-amber-50 px-4 py-3 rounded-lg hover:bg-amber-900 transition-all duration-300 font-medium flex-shrink-0"
+            className="bg-amber-800 text-amber-50 px-4 py-2 rounded-lg hover:bg-amber-900 transition-all duration-300 font-medium flex-shrink-0 shadow-md"
           >
             Search
           </button>
