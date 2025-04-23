@@ -30,22 +30,57 @@ const GoalTracker = () => {
     setTargetDate(localStorage.getItem("goalDate") || "");
   }, []);
 
-  return (
-    <div className="bg-white shadow-md rounded-xl p-6 mt-6 max-w-xl mx-auto text-center">
-      <h2 className="text-xl font-semibold mb-2">🎯 Your Goal</h2>
+  const formatTimeUnit = (value) => {
+    return value < 10 ? `0${value}` : value;
+  };
 
-      {description && <p className="text-md font-medium">{description}</p>}
+  return (
+    <div className="h-full p-6 bg-amber-100 shadow-lg rounded-2xl border-2 border-amber-200">
+      <h2 className="text-2xl font-bold mb-6 text-amber-800 text-center">🎯 Your Goal</h2>
+
+      {description ? (
+        <div className="bg-amber-50 p-4 rounded-xl border border-amber-200 shadow-sm mb-4">
+          <p className="text-lg font-medium text-amber-900 mb-2">{description}</p>
+        </div>
+      ) : (
+        <div className="bg-amber-50 p-4 rounded-xl border border-amber-200 shadow-sm mb-4">
+          <p className="text-amber-700 italic">No goal description set</p>
+        </div>
+      )}
 
       {targetDate ? (
         timeLeft?.expired ? (
-          <p className="text-red-500 mt-2">⏰ Time’s up!</p>
+          <div className="bg-red-50 p-4 rounded-xl border border-red-200 shadow-sm">
+            <p className="text-xl font-bold text-red-600 mb-2">⏰ Time's up!</p>
+            <p className="text-red-500">Your goal deadline has passed</p>
+          </div>
         ) : (
-          <p className="mt-2 text-gray-700">
-            ⏳ {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s left
-          </p>
+          <div className="bg-amber-50 p-4 rounded-xl border border-amber-200 shadow-sm">
+            <p className="text-amber-800 font-medium mb-3">Time Remaining:</p>
+            <div className="grid grid-cols-4 gap-2 text-center">
+              <div className="bg-amber-800 text-amber-50 p-2 rounded-lg">
+                <p className="text-xl font-bold">{formatTimeUnit(timeLeft.days || 0)}</p>
+                <p className="text-xs">Days</p>
+              </div>
+              <div className="bg-amber-800 text-amber-50 p-2 rounded-lg">
+                <p className="text-xl font-bold">{formatTimeUnit(timeLeft.hours || 0)}</p>
+                <p className="text-xs">Hours</p>
+              </div>
+              <div className="bg-amber-800 text-amber-50 p-2 rounded-lg">
+                <p className="text-xl font-bold">{formatTimeUnit(timeLeft.minutes || 0)}</p>
+                <p className="text-xs">Mins</p>
+              </div>
+              <div className="bg-amber-800 text-amber-50 p-2 rounded-lg">
+                <p className="text-xl font-bold">{formatTimeUnit(timeLeft.seconds || 0)}</p>
+                <p className="text-xs">Secs</p>
+              </div>
+            </div>
+          </div>
         )
       ) : (
-        <p className="text-gray-500 mt-2 italic">No goal date set. Go to settings to configure.</p>
+        <div className="bg-amber-50 p-4 rounded-xl border border-amber-200 shadow-sm">
+          <p className="text-amber-700 italic">No goal date set. Use settings to configure.</p>
+        </div>
       )}
     </div>
   );

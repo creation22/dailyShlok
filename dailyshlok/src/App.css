@@ -1,3 +1,13 @@
+/* App.css */
+
+body {
+  background-color: #fff8e1; /* creamy background */
+  color: #5d4037; /* brown text */
+  font-family: 'Playwrite AU SA', sans-serif; /* Optional - your chosen font */
+  margin: 0;
+  padding: 0;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;

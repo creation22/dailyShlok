@@ -14,6 +14,7 @@ const SearchBar = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
+
     let url = "";
 
     switch (provider) {
@@ -33,27 +34,52 @@ const SearchBar = () => {
     window.open(url, "_blank");
   };
 
+  const handleProviderChange = (e) => {
+    const newProvider = e.target.value;
+    setProvider(newProvider);
+    localStorage.setItem("searchProvider", newProvider);
+  };
+
   if (!visible) return null;
 
   return (
-    <form
-      onSubmit={handleSearch}
-      className="flex items-center gap-2 px-4 py-3 bg-white border rounded-xl shadow max-w-xl mx-auto mt-6"
-    >
-      <input
-        type="text"
-        className="flex-grow border px-3 py-2 rounded-lg"
-        placeholder={`Search with ${provider.charAt(0).toUpperCase() + provider.slice(1)}`}
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <button
-        type="submit"
-        className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
+    <div className="w-full">
+      <form
+        onSubmit={handleSearch}
+        className="flex flex-col md:flex-row items-center gap-3 p-4 bg-amber-50 border-2 border-amber-200 rounded-xl shadow-md"
       >
-        Search
-      </button>
-    </form>
+        <div className="flex-grow w-full">
+          <div className="flex items-center bg-white rounded-lg border border-amber-300 overflow-hidden">
+            <input
+              type="text"
+              className="flex-grow px-4 py-3 text-amber-900 placeholder-amber-400 bg-white outline-none w-full"
+              placeholder={`Search with ${provider.charAt(0).toUpperCase() + provider.slice(1)}`}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </div>
+        </div>
+        
+        <div className="flex gap-2 w-full md:w-auto">
+          <select
+            value={provider}
+            onChange={handleProviderChange}
+            className="px-3 py-3 rounded-lg border border-amber-300 bg-white text-amber-800 cursor-pointer"
+          >
+            <option value="google">Google</option>
+            <option value="chatgpt">ChatGPT</option>
+            <option value="perplexity">Perplexity</option>
+          </select>
+          
+          <button
+            type="submit"
+            className="bg-amber-800 text-amber-50 px-4 py-3 rounded-lg hover:bg-amber-900 transition-all duration-300 font-medium flex-shrink-0"
+          >
+            Search
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 
