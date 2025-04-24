@@ -11,10 +11,39 @@ const ShlokDisplay = () => {
   const [currentShlok, setCurrentShlok] = useState(getRandomShlok);
   const [isAnimating, setIsAnimating] = useState(false);
 
+  const refreshShlok = () => {
+    const newShlok = getRandomShlok();
+    setCurrentShlok(newShlok);
+  };
+
+  useEffect(() => {
+    // Set shlok immediately on load
+    refreshShlok();
+
+    // Calculate time until next midnight
+    const now = new Date();
+    const nextMidnight = new Date();
+    nextMidnight.setHours(24, 0, 0, 0); // Midnight of the next day
+    const msUntilMidnight = nextMidnight - now;
+
+    // Set a timeout to trigger at midnight
+    const midnightTimeout = setTimeout(() => {
+      refreshShlok();
+
+      // After first refresh, set an interval to repeat every 24 hours
+      setInterval(() => {
+        refreshShlok();
+      }, 24 * 60 * 60 * 1000); // 24 hours
+    }, msUntilMidnight);
+
+    // Cleanup on unmount
+    return () => clearTimeout(midnightTimeout);
+  }, []);
+
   const getNewShlok = () => {
     setIsAnimating(true);
     setTimeout(() => {
-      setCurrentShlok(getRandomShlok());
+      refreshShlok();
       setIsAnimating(false);
     }, 500);
   };
@@ -23,13 +52,13 @@ const ShlokDisplay = () => {
     <div className="h-full flex flex-col">
       <div className="w-full h-full p-6 rounded-2xl bg-gradient-to-br from-amber-100 to-amber-50 shadow-lg border border-amber-200 flex flex-col">
         <div className="flex justify-between items-center mb-6">
-          <div className="w-8"></div> {/* Empty div for balance */}
+          <div className="w-8"></div>
           <h1 className="text-2xl font-bold text-amber-800 text-center">Daily Wisdom</h1>
           <div className="bg-amber-800/10 p-1 rounded-md">
             <span className="text-xs text-amber-800 uppercase tracking-wider">Drag to move</span>
           </div>
         </div>
-        
+
         {currentShlok ? (
           <motion.div
             initial={{ opacity: 0 }}
