@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 
 const DragHandle = () => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <div className="bg-amber-800/10 p-1 rounded-md cursor-move">
+    <div 
+      className={`${
+        isHovered ? "bg-amber-800/20" : "bg-amber-800/10"
+      } p-1 rounded-md cursor-move transition-all duration-300`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <svg 
         xmlns="http://www.w3.org/2000/svg" 
         width="16" 

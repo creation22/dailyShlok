@@ -4,6 +4,7 @@ const GoalTracker = () => {
   const [description, setDescription] = useState(localStorage.getItem("goalDescription") || "");
   const [targetDate, setTargetDate] = useState(localStorage.getItem("goalDate") || "");
   const [timeLeft, setTimeLeft] = useState({});
+  const [showSearchBar, setShowSearchBar] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -28,14 +29,20 @@ const GoalTracker = () => {
     // Update from localStorage whenever component mounts
     setDescription(localStorage.getItem("goalDescription") || "");
     setTargetDate(localStorage.getItem("goalDate") || "");
+    setShowSearchBar(localStorage.getItem("showSearchBar") !== "false");
   }, []);
 
   const formatTimeUnit = (value) => {
     return value < 10 ? `0${value}` : value;
   };
 
+  // Determine if we should use expanded height when search bar is hidden
+  const containerClasses = !showSearchBar 
+    ? "h-full p-5 bg-gradient-to-br from-amber-100 to-amber-50 shadow-lg rounded-2xl border border-amber-200 flex flex-col"
+    : "h-full p-5 bg-gradient-to-br from-amber-100 to-amber-50 shadow-lg rounded-2xl border border-amber-200";
+
   return (
-    <div className="h-full p-5 bg-gradient-to-br from-amber-100 to-amber-50 shadow-lg rounded-2xl border border-amber-200">
+    <div className={containerClasses}>
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold text-amber-800">🎯 Your Goal</h2>
         <div className="bg-amber-800/10 p-1 rounded-md">
@@ -45,7 +52,7 @@ const GoalTracker = () => {
 
       {/* Smaller description */}
       {description ? (
-        <div className="bg-amber-50 p-3 rounded-xl border border-amber-200 shadow-sm mb-4 max-h-16 overflow-auto">
+        <div className="bg-amber-50 p-3 rounded-xl border border-amber-200 shadow-sm mb-4 max-h-20 overflow-auto">
           <p className="text-sm font-medium text-amber-900">{description}</p>
         </div>
       ) : (
@@ -57,35 +64,35 @@ const GoalTracker = () => {
       {/* Timer */}
       {targetDate ? (
         timeLeft?.expired ? (
-          <div className="bg-red-50 p-4 rounded-xl border border-red-200 shadow-md">
+          <div className="bg-red-50 p-4 rounded-xl border border-red-200 shadow-md flex-grow flex flex-col justify-center">
             <p className="text-xl font-bold text-red-600 mb-2 text-center">⏰ Time's up!</p>
             <p className="text-red-500 text-center">Your goal deadline has passed</p>
           </div>
         ) : (
-          <div className="bg-amber-50 p-4 rounded-xl border border-amber-200 shadow-md">
-            <p className="text-amber-800 font-medium mb-2 text-center">Time Remaining:</p>
+          <div className={`bg-amber-50 p-4 rounded-xl border border-amber-200 shadow-md ${!showSearchBar ? "flex-grow flex flex-col justify-center" : ""}`}>
+            <p className="text-amber-800 font-medium mb-3 text-center">Time Remaining:</p>
             <div className="grid grid-cols-4 gap-2 text-center">
               <div className="bg-gradient-to-b from-amber-700 to-amber-800 text-amber-50 p-2 rounded-lg shadow-md">
-                <p className="text-2xl font-bold">{formatTimeUnit(timeLeft.days || 0)}</p>
+                <p className={`${!showSearchBar ? "text-3xl" : "text-2xl"} font-bold`}>{formatTimeUnit(timeLeft.days || 0)}</p>
                 <p className="text-xs uppercase tracking-wider">Days</p>
               </div>
               <div className="bg-gradient-to-b from-amber-700 to-amber-800 text-amber-50 p-2 rounded-lg shadow-md">
-                <p className="text-2xl font-bold">{formatTimeUnit(timeLeft.hours || 0)}</p>
+                <p className={`${!showSearchBar ? "text-3xl" : "text-2xl"} font-bold`}>{formatTimeUnit(timeLeft.hours || 0)}</p>
                 <p className="text-xs uppercase tracking-wider">Hrs</p>
               </div>
               <div className="bg-gradient-to-b from-amber-700 to-amber-800 text-amber-50 p-2 rounded-lg shadow-md">
-                <p className="text-2xl font-bold">{formatTimeUnit(timeLeft.minutes || 0)}</p>
+                <p className={`${!showSearchBar ? "text-3xl" : "text-2xl"} font-bold`}>{formatTimeUnit(timeLeft.minutes || 0)}</p>
                 <p className="text-xs uppercase tracking-wider">Min</p>
               </div>
               <div className="bg-gradient-to-b from-amber-700 to-amber-800 text-amber-50 p-2 rounded-lg shadow-md">
-                <p className="text-2xl font-bold">{formatTimeUnit(timeLeft.seconds || 0)}</p>
+                <p className={`${!showSearchBar ? "text-3xl" : "text-2xl"} font-bold`}>{formatTimeUnit(timeLeft.seconds || 0)}</p>
                 <p className="text-xs uppercase tracking-wider">Sec</p>
               </div>
             </div>
           </div>
         )
       ) : (
-        <div className="bg-amber-50 p-4 rounded-xl border border-amber-200 shadow-sm">
+        <div className={`bg-amber-50 p-4 rounded-xl border border-amber-200 shadow-sm ${!showSearchBar ? "flex-grow flex flex-col justify-center" : ""}`}>
           <p className="text-amber-700 italic text-center">No goal date set. Use settings to configure.</p>
         </div>
       )}

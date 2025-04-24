@@ -34,12 +34,6 @@ const SearchBar = () => {
     window.open(url, "_blank");
   };
 
-  const handleProviderChange = (e) => {
-    const newProvider = e.target.value;
-    setProvider(newProvider);
-    localStorage.setItem("searchProvider", newProvider);
-  };
-
   if (!visible) return null;
 
   return (
@@ -68,21 +62,11 @@ const SearchBar = () => {
         </div>
         
         <div className="flex gap-2 w-full">
-          <select
-            value={provider}
-            onChange={handleProviderChange}
-            className="px-3 py-2 rounded-lg border border-amber-300 bg-white text-amber-800 cursor-pointer shadow-sm flex-grow"
-          >
-            <option value="google">Google</option>
-            <option value="chatgpt">ChatGPT</option>
-            <option value="perplexity">Perplexity</option>
-          </select>
-          
           <button
             type="submit"
-            className="bg-amber-800 text-amber-50 px-4 py-2 rounded-lg hover:bg-amber-900 transition-all duration-300 font-medium flex-shrink-0 shadow-md"
+            className="bg-gradient-to-r from-amber-700 to-amber-800 text-amber-50 px-4 py-2 rounded-lg hover:from-amber-600 hover:to-amber-900 transition-all duration-500 font-medium flex-grow shadow-md"
           >
-            Search
+            Search with {provider.charAt(0).toUpperCase() + provider.slice(1)}
           </button>
         </div>
       </form>

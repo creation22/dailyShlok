@@ -10,6 +10,7 @@ const ShlokDisplay = () => {
 
   const [currentShlok, setCurrentShlok] = useState(getRandomShlok);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [buttonHovered, setButtonHovered] = useState(false);
 
   const refreshShlok = () => {
     const newShlok = getRandomShlok();
@@ -77,7 +78,11 @@ const ShlokDisplay = () => {
 
             <motion.button
               onClick={getNewShlok}
-              className="bg-amber-800 text-amber-50 px-8 py-3 rounded-xl text-lg font-medium shadow-md hover:bg-amber-900 transition-all duration-300"
+              onMouseEnter={() => setButtonHovered(true)}
+              onMouseLeave={() => setButtonHovered(false)}
+              className={`bg-gradient-to-r ${
+                buttonHovered ? "from-amber-600 to-amber-900" : "from-amber-700 to-amber-800"
+              } text-amber-50 px-8 py-3 rounded-xl text-lg font-medium shadow-md transition-all duration-500`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               disabled={isAnimating}

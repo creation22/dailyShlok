@@ -7,6 +7,7 @@ const SettingsCorner = () => {
   const [dateTime, setDateTime] = useState("");
   const [showSearch, setShowSearch] = useState(true);
   const [searchProvider, setSearchProvider] = useState("google");
+  const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
     // Load saved settings
@@ -26,17 +27,28 @@ const SettingsCorner = () => {
     localStorage.setItem("goalDate", dateTime);
     localStorage.setItem("showSearchBar", showSearch);
     localStorage.setItem("searchProvider", searchProvider);
-    alert("✅ Settings saved!");
-    setOpen(false);
-    window.location.reload(); // To refresh goal tracker / search bar display
+    
+    // Add save animation
+    setIsAnimating(true);
+    setTimeout(() => {
+      setIsAnimating(false);
+      setOpen(false);
+      window.location.reload(); // To refresh goal tracker / search bar display
+    }, 1000);
   };
+
+  const buttonGradient = isAnimating
+    ? "bg-gradient-to-r from-green-600 to-green-700"
+    : "bg-gradient-to-r from-amber-700 to-amber-800 hover:from-amber-800 hover:to-amber-900";
+
+  const buttonText = isAnimating ? "✓ Saved!" : "Save & Close";
 
   return (
     <>
       {/* Floating Button */}
       <button
         onClick={() => setOpen(!open)}
-        className="fixed top-4 right-4 bg-gradient-to-br from-amber-700 to-amber-800 text-amber-50 p-3 rounded-full shadow-lg hover:from-amber-800 hover:to-amber-900 transition-all duration-300 z-50"
+        className="fixed top-4 right-4 bg-gradient-to-br from-amber-700 to-amber-800 text-amber-50 p-3 rounded-full shadow-lg hover:from-amber-600 hover:to-amber-900 transition-all duration-500 z-50"
         title="Settings"
       >
         <Settings size={20} />
@@ -55,7 +67,7 @@ const SettingsCorner = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="e.g. Read 100 shloks"
-              className="w-full border border-amber-300 rounded-lg px-3 py-2 mt-1 text-amber-900 bg-white placeholder-amber-400 shadow-sm"
+              className="w-full border border-amber-300 rounded-lg px-3 py-2 mt-1 text-amber-900 bg-white placeholder-amber-400 shadow-sm focus:ring-2 focus:ring-amber-300 focus:border-amber-300 transition-all"
             />
           </div>
 
@@ -66,7 +78,7 @@ const SettingsCorner = () => {
               type="datetime-local"
               value={dateTime}
               onChange={(e) => setDateTime(e.target.value)}
-              className="w-full border border-amber-300 rounded-lg px-3 py-2 mt-1 text-amber-900 bg-white shadow-sm"
+              className="w-full border border-amber-300 rounded-lg px-3 py-2 mt-1 text-amber-900 bg-white shadow-sm focus:ring-2 focus:ring-amber-300 focus:border-amber-300 transition-all"
             />
           </div>
 
@@ -81,26 +93,29 @@ const SettingsCorner = () => {
             <label className="text-sm text-amber-800">Show Search Bar</label>
           </div>
 
-          {/* Search Provider */}
-          <div className="mb-4">
-            <label className="text-sm font-medium text-amber-800">Search Provider</label>
-            <select
-              value={searchProvider}
-              onChange={(e) => setSearchProvider(e.target.value)}
-              className="w-full border border-amber-300 rounded-lg px-3 py-2 mt-1 text-amber-900 bg-white shadow-sm"
-            >
-              <option value="google">Google</option>
-              <option value="chatgpt">ChatGPT</option>
-              <option value="perplexity">Perplexity</option>
-            </select>
-          </div>
+          {/* Search Provider - Only visible when search is enabled */}
+          {showSearch && (
+            <div className="mb-4">
+              <label className="text-sm font-medium text-amber-800">Search Provider</label>
+              <select
+                value={searchProvider}
+                onChange={(e) => setSearchProvider(e.target.value)}
+                className="w-full border border-amber-300 rounded-lg px-3 py-2 mt-1 text-amber-900 bg-white shadow-sm focus:ring-2 focus:ring-amber-300 focus:border-amber-300 transition-all"
+              >
+                <option value="google">Google</option>
+                <option value="chatgpt">ChatGPT</option>
+                <option value="perplexity">Perplexity</option>
+              </select>
+            </div>
+          )}
 
           {/* Save Button */}
           <button
             onClick={handleSave}
-            className="bg-gradient-to-r from-amber-700 to-amber-800 text-amber-50 w-full py-2 rounded-xl hover:from-amber-800 hover:to-amber-900 transition-all duration-300 shadow-md"
+            className={`${buttonGradient} text-amber-50 w-full py-2 rounded-xl transition-all duration-500 shadow-md`}
+            disabled={isAnimating}
           >
-            Save & Close
+            {buttonText}
           </button>
         </div>
       )}
