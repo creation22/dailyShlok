@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import SearchBar from "./components/SearchBar";
+import SearchBar from "./components/Searchbar.jsx";
 import ShlokDisplay from "./components/ShlokDisplay";
 import GoalTracker from "./components/GoalTracker";
 import SettingsCorner from "./components/Setting";
